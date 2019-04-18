@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Click me... if you can</title>
+    <style>
+      body {
+        color: white;
+        background-color: black;
+      }
+
+      div#face {
+        width: 100px;
+        height: 100px;
+        background-image: url("face1.jpg");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: fixed;
+      }
+    </style>
+    <script
+      src="https://code.jquery.com/jquery-3.4.0.min.js"
+      integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <h1 style="text-align: center">Click me if you <em>can</em>!</h1>
+    <div id="face" style="border-radius: 25px" onClick="gotMe()"></div>
+    <script>
+      var timeout;
+      function gotMe() {
+        var images = ["face2.jpg", "face3.jpg", "face4.jpg"];
+        var randIndex = Math.floor(Math.random() * 3);
+        var randImgUrl = images[randIndex];
+        $("#face").css("background-image", `url(${randImgUrl})`);
+        $("#face").width(200);
+        $("#face").height(200);
+        timeout = setTimeout(() => {
+          $("#face").css("background-image", "url(face1.jpg)");
+          $("#face").width(100);
+          $("#face").height(100);
+        }, 500);
+      }
+
+      $(document).ready(() => {
+        animateMyFace();
+      });
+
+      function calcNewPosition() {
+        const height = $(window).height() - 100;
+        const width = $(window).width() - 100;
+        const newHeight = Math.floor(Math.random() * height);
+        const newWidth = Math.floor(Math.random() * width);
+        return [newHeight, newWidth];
+      }
+
+      function animateMyFace() {
+        const newPos = calcNewPosition();
+        const oldPos = $("#face").offset();
+        const speed = calcSpeed([oldPos.top, oldPos.left], newPos);
+        $("#face").animate({ top: newPos[0], left: newPos[1] }, speed, () => {
+          animateMyFace();
+        });
+      }
+
+      function calcSpeed(prev, next) {
+        const x = Math.abs(prev[1] - next[1]);
+        const y = Math.abs(prev[0] - next[0]);
+        const greatest = x > y ? x : y;
+        const speedModifier = 0.2;
+        const speed = Math.ceil(greatest / speedModifier);
+        return speed;
+      }
+    </script>
+  </body>
+</html>
