@@ -10,7 +10,6 @@
         color: white;
         background-color: black;
       }
-
       div#face {
         width: 100px;
         height: 100px;
@@ -19,6 +18,21 @@
         background-repeat: no-repeat;
         background-size: cover;
         position: fixed;
+      }
+      div#face2 {
+        background-image: url("face2.jpg");
+        width: 0;
+        height: 0;
+      }
+      div#face3 {
+        background-image: url("face3.jpg");
+        width: 0;
+        height: 0;
+      }
+      div#face4 {
+        background-image: url("face4.jpg");
+        width: 0;
+        height: 0;
       }
     </style>
     <script
@@ -30,6 +44,10 @@
   <body>
     <h1 style="text-align: center">Click me if you <em>can</em>!</h1>
     <div id="face" style="border-radius: 25px" onClick="gotMe()"></div>
+    <div id="face2"></div>
+    <div id="face3"></div>
+    <div id="face4"></div>
+
     <script>
       var timeout;
       function gotMe() {
